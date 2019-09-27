@@ -3,36 +3,42 @@ const Bluebird = require('bluebird');
 const fs = require('fs');
 
 // User Data
-// const igUser='eugenio.insta.test@gmail.com';
+// const igUsername='eugenio.insta.test@gmail.com';
 // const igPassword='instatest12345';
 
-const igUser='nitevakos@tympe.net'; 
+const igUsername='nitevakos@tympe.net'; 
 const igPassword='instatest12345';
-
 //Message
 const igMessage = 'New Text';
 
 // Photo Data
-const path = './img/1.jpg';
+// const imagePath = './img/1.jpg';
+// const imagePath = './uploads/d92f830511dd152516f0ccc773089d32';
+
 const imgCaption = 'Pic 1'
 const imgLocation = 'Aveiro'
 const ig = new insta.IgApiClient();
 
 //Login Function
-async function login() {
-  ig.state.generateDevice(process.env.IG_USERNAME=igUser);
+const login = async function (/*igUsername,igPassword*/) {
+  ig.state.generateDevice(process.env.IG_USERNAME=igUsername);
   ig.state.proxyUrl = process.env.IG_PROXY;
-  await ig.account.login(process.env.IG_USERNAME, process.env.IG_PASSWORD=igPassword);
+  callback= await ig.account.login(process.env.IG_USERNAME, process.env.IG_PASSWORD=igPassword);
+  console.log('Logged in as:',igUsername);
+   
 }
 
-const igSendImage = function(){
+const igSendImage = function(imageFileName,photoDescription,photoLocation){
+  //Get local stored photo
+  const imagePath = './uploads/'+imageFileName;
+ 
    (async () => {
     await login();
     const { latitude, longitude, searchQuery } = {
       latitude: 0.0,
       longitude: 0.0,
       // not required
-      searchQuery: imgLocation,
+      searchQuery: photoLocation,
     };
     /**
      * Get the place
@@ -47,15 +53,17 @@ const igSendImage = function(){
     const mediaLocation = locations[0];
     await ig.publish.photo({
       // read the file into a Buffer     
-      file: await Bluebird.fromCallback(cb => fs.readFile(path, cb)),
+      file: await Bluebird.fromCallback(cb => fs.readFile(imagePath, cb)),
       location: mediaLocation,
-      caption: imgCaption 
+      caption: photoDescription 
     });  
     console.log('Image published');
+    
+    return true;
     })();
   };
     
-  const igDmFollowers = function(igMessage){
+  const igDmFollowers = function(igMessage,status){
      (async () => {
         await login();
         //GET ACCOUNT FOLLOWERS (by username and then ID)
@@ -73,11 +81,13 @@ const igSendImage = function(){
             await thread.broadcastText(igMessage); 
         }
         console.log('Message: \'', igMessage, '\' sent to ', friendIds.length, ' followers.')
+        status=true;
         return;
         })();
     };
 
    
-
+//funtions to export
 module.exports.igSendImage=igSendImage;
 module.exports.igDmFollowers=igDmFollowers;
+module.exports.igLogin=login;
