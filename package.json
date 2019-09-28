@@ -2,7 +2,7 @@
   "name": "lim9-ig",
   "version": "1.0.0",
   "description": "instagram bot for uploading and sending DMs",
-  "main": "test1.js",
+  "main": "server.js",
   "scripts": {
     "run": "nodemon server.js"
   },

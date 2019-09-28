@@ -12,9 +12,9 @@
 
 
     <form action="/imagePost" method="POST" enctype="multipart/form-data">
-        <input type="text" name="photoPostDescription" id="photoPostDescription" placeholder="Description">
-        <input type="text" name="photoPostLocation" id="photoPostLocation" placeholder="Location">
-        <input type="file" name="photoPost" accept="image/jpg" >>
+        <input type="text" name="photoPostDescription" id="photoPostDescription" placeholder="Description" required>
+        <input type="text" name="photoPostLocation" id="photoPostLocation" placeholder="Location" required>
+        <input type="file" name="photoPost" accept="image/jpg" required>>
         <input type="submit">
     </form>
 
