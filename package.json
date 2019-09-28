@@ -2,7 +2,7 @@
   "name": "lim9-ig",
   "version": "1.0.0",
   "description": "instagram bot for uploading and sending DMs",
-  "main": "./puclic/server.js",
+  "main": "./public/js/server.js",
   "scripts": {
     "start": "node ./public/js/server.js",
     "test": "nodemon ./public/js/server.js"
