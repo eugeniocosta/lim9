@@ -1,6 +1,7 @@
 // Server instagram Bot - 2019
 
 //requiments
+const insta = require('instagram-private-api');
 const path = require('path');
 const bodyParser = require('body-parser');
 const multer = require('multer');
@@ -8,11 +9,13 @@ const express = require('express');
 const igFunc = require('./igFunctions.js'); //require Instagram Function Module - PostImage & DM Followers
 
 //constants
+const ig = new insta.IgApiClient();
 const app = express();
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const publicDirectoryPath = path.join(__dirname, '/public');
-const port = 2000;
+const port = 4000;
 
+let loggedIn = false;
 let igUsername,igPassword;
 
 app.use(express.static(publicDirectoryPath));
@@ -43,17 +46,47 @@ app.get('/',function(req,res){
 app.post('/login',urlencodedParser, function (req, res) {
   igUsername=req.body.igUsername;
   igPassword=req.body.igPassword;
-  igFunc.igLogin(igUsername,igPassword)
-  res.sendFile(path.join(__dirname,'./public/main.html'),{name:'eugenio'});
+  // igFunc.igLogin(igUsername,igPassword)
+  login(igUsername,igPassword);
+  setTimeout(() => { //verify crendentials
+    if (loggedIn) {     
+      res.sendFile(path.join(__dirname,'./public/main.html'));
+    }else{
+      res.sendFile(path.join(__dirname,'./public/badLogin.html'));
+    }
+  }, 2500);
+// (async   () =>{
+//    await login(igUsername,igPassword)
+//    if (await loggedIn) { 
+//         console.log('good login');
+
+//         res.sendFile(path.join(__dirname,'./public/main.html'));
+//       }else{
+//         console.log('bad login');
+//         res.sendFile(path.join(__dirname,'./public/badLogin.html'));
+//       }
+// })()
+
 })
 
+
+const login = async function (igUsername,igPassword) {
+  ig.state.generateDevice(process.env.IG_USERNAME=igUsername);
+  ig.state.proxyUrl = process.env.IG_PROXY;
+  session=await ig.account.login(process.env.IG_USERNAME, process.env.IG_PASSWORD=igPassword);   
+  
+  if ( session) { //verify if loggen in
+    loggedIn = true;
+  }else loggedIn = false;
+  console.log('Logged in as:',igUsername);   
+ };
+ 
 
     ///////////////////////////////////
    //        Image Post Page        //
   ///////////////////////////////////
 
 // //get image,description and location to post
-
 app.post('/imagePost',upload.single('photoPost'), function (req, res) {
    if(req.file) {
         console.log('FILE.NAME: ',req.file.filename);

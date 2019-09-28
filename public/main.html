@@ -15,12 +15,13 @@
                          Post Image to account
                     </span>
                     <form action="/imagePost" method="POST" enctype="multipart/form-data">
-                        <input type="text" class="wrap-input100" name="photoPostDescription" id="photoPostDescription" placeholder="Description" required>
+                        <input type="text" class="wrap-input100 description" name="photoPostDescription" id="photoPostDescription" placeholder="Description" required>
                         <input type="text" class="wrap-input100" name="photoPostLocation" id="photoPostLocation" placeholder="Location" required>
-                        <input type="file" name="photoPost" accept="image/jpg" required>>
+                        <input type="file" class="custom-file-input"name="photoPost" accept="image/jpg" required>>
                         <input type="submit" class ='login100-form-btn login100-form-btn' value='Upload Image'>
                     </form>
-                    <span class="login100-form-title p-b-50 ">
+                    <p><hr/></p>
+                    <span class="login100-form-title">
                             Send Message to Followers
                         </span>
                     <form id='dmForm' method="POST" action="/dmFollowers">

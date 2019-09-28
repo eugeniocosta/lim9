@@ -11,9 +11,8 @@ const login = async function (igUsername,igPassword) {
   ig.state.generateDevice(process.env.IG_USERNAME=igUsername);
   ig.state.proxyUrl = process.env.IG_PROXY;
   await ig.account.login(process.env.IG_USERNAME, process.env.IG_PASSWORD=igPassword);
-  console.log('Logged in as:',igUsername);   
-  
-}
+ }
+ 
 
 //Post Photo Function
 const igSendImage = function(igUsername,igPassword,imageFileName,photoDescription,photoLocation){
@@ -70,4 +69,4 @@ const igSendImage = function(igUsername,igPassword,imageFileName,photoDescriptio
 //funtions to export
 module.exports.igSendImage=igSendImage;
 module.exports.igDmFollowers=igDmFollowers;
-module.exports.igLogin=login;
+// module.exports.igLogin=login;
