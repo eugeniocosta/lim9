@@ -6,7 +6,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const express = require('express');
-const igFunc = require('./igFunctions.js'); //require Instagram Function Module - PostImage & DM Followers
+const igFunc = require('./igFunctions'); //require Instagram Function Module - PostImage & DM Followers
 
 //constants
 const ig = new insta.IgApiClient();
@@ -39,7 +39,7 @@ var upload = multer({ storage: storage });
   //         Index Page            //
  ///////////////////////////////////
 app.get('/',function(req,res){
-   res.render('/index');  
+   res.render('/index');   
 });
 
 //Log in as user
@@ -48,40 +48,31 @@ app.post('/login',urlencodedParser, function (req, res) {
   igPassword=req.body.igPassword;
   // igFunc.igLogin(igUsername,igPassword)
   login(igUsername,igPassword);
-  setTimeout(() => { //verify crendentials
-    if (loggedIn) {     
-      res.sendFile(path.join(__dirname,'./public/main.html'));
-    }else{
-      res.sendFile(path.join(__dirname,'./public/badLogin.html'));
-    }
-  }, 2500);
-// (async   () =>{
-//    await login(igUsername,igPassword)
-//    if (await loggedIn) { 
-//         console.log('good login');
-
-//         res.sendFile(path.join(__dirname,'./public/main.html'));
-//       }else{
-//         console.log('bad login');
-//         res.sendFile(path.join(__dirname,'./public/badLogin.html'));
-//       }
-// })()
-
+  (async   () =>{
+    await login(igUsername,igPassword)
+    if ( loggedIn) { 
+          console.log('good login');
+          res.sendFile(path.join(__dirname,'./public/main.html'));
+        }else{
+          console.log('bad login');
+          res.sendFile(path.join(__dirname,'./public/badLogin.html'));
+        }
+  })()
 })
 
 
 const login = async function (igUsername,igPassword) {
   ig.state.generateDevice(process.env.IG_USERNAME=igUsername);
   ig.state.proxyUrl = process.env.IG_PROXY;
-  session=await ig.account.login(process.env.IG_USERNAME, process.env.IG_PASSWORD=igPassword);   
-  
-  if ( session) { //verify if loggen in
+  try{
+    session=await ig.account.login(process.env.IG_USERNAME, process.env.IG_PASSWORD=igPassword);
     loggedIn = true;
-  }else loggedIn = false;
-  console.log('Logged in as:',igUsername);   
+    console.log('Logged in as:',igUsername);   
+  } catch (error) {
+    loggedIn = false;
+  }
  };
  
-
     ///////////////////////////////////
    //        Image Post Page        //
   ///////////////////////////////////
@@ -101,10 +92,12 @@ app.post('/imagePost',upload.single('photoPost'), function (req, res) {
    ///////////////////////////////////
   //      DM Followers Page        //
  ///////////////////////////////////
-
-//get text message 
+ 
 app.post('/dmFollowers',urlencodedParser, function (req, res) {
-  igFunc.igDmFollowers(igUsername,igPassword,req.body.dmMessage); 
+  
+  (async function () {
+    console.log('\n\n',await  igFunc.igDmFollowers(igUsername,igPassword,req.body.dmMessage));
+  })()
 })
 
    ///////////////////////////////////

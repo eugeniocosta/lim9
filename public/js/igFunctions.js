@@ -7,7 +7,7 @@ const fs = require('fs');
 const ig = new insta.IgApiClient();
 
 //Login Function
-const login = async function (igUsername,igPassword) {
+const login = async function (igUsername,igPassword,cb) {
   ig.state.generateDevice(process.env.IG_USERNAME=igUsername);
   ig.state.proxyUrl = process.env.IG_PROXY;
   await ig.account.login(process.env.IG_USERNAME, process.env.IG_PASSWORD=igPassword);
@@ -61,7 +61,7 @@ const igSendImage = function(igUsername,igPassword,imageFileName,photoDescriptio
             await thread.broadcastText(igMessage); 
         }
         console.log('Message: \'', igMessage, '\' sent to ', friendIds.length, ' followers.')
-        return;
+        return  friendIds.length;
         })();
     };
 

@@ -2,10 +2,10 @@
   "name": "lim9-ig",
   "version": "1.0.0",
   "description": "instagram bot for uploading and sending DMs",
-  "main": "server.js",
+  "main": "./puclic/server.js",
   "scripts": {
-    "start": "node server.js",
-    "test": "nodemon server.js"
+    "start": "node ./public/js/server.js",
+    "test": "nodemon ./public/js/server.js"
   },
   "author": "Eugénio da Costa",
   "license": "ISC",

@@ -18,27 +18,21 @@
                         <input type="text" class="wrap-input100 description" name="photoPostDescription" id="photoPostDescription" placeholder="Description" required>
                         <input type="text" class="wrap-input100" name="photoPostLocation" id="photoPostLocation" placeholder="Location" required>
                         <input type="file" class="custom-file-input"name="photoPost" accept="image/jpg" required>>
-                        <input type="submit" class ='login100-form-btn login100-form-btn' value='Upload Image'>
+                        <input type="submit" id="imageSubmit"class ="login100-form-btn login100-form-btn" value="Upload Image">
                     </form>
                     <p><hr/></p>
                     <span class="login100-form-title">
                             Send Message to Followers
                         </span>
-                    <form id='dmForm' method="POST" action="/dmFollowers">
-                        <input type="text" class="wrap-input100"name="dmMessage" id="dmMessage" size="59" placeholder='Message to send' required/>
-                        <input type="submit" class ='login100-form-btn login100-form-btn'id='submit'value='Send Message to Followers'/>
+                    <form id="dmForm" method="POST" action="/dmFollowers">
+                        <input type="text" class="wrap-input100"name="dmMessage" id="dmMessage" size="59" placeholder="Message to send" required/>
+                        <input type="submit" id="dmSubmit" class ="login100-form-btn login100-form-btn"id="submit"value="Send Message to Followers"/>
                     </form>
                 </div> 
             </div>
         </div> 
-        <p><%= name %></p>
-        <script>var name = "<%= name %>";
-          console.log(name);
-          </script>
-      
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="client.js" type="text/javascript"></script>
+    
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+    <script src="/public/js/client.js" type="text/javascript"></script>
 </body>
 </html>
