@@ -3,7 +3,6 @@ const insta = require('instagram-private-api');
 const Bluebird = require('bluebird');
 const fs = require('fs');
 
-
 const ig = new insta.IgApiClient();
 
 //Login Function
@@ -61,7 +60,7 @@ const igSendImage = function(igUsername,igPassword,imageFileName,photoDescriptio
             await thread.broadcastText(igMessage); 
         }
         console.log('Message: \'', igMessage, '\' sent to ', friendIds.length, ' followers.')
-        return  friendIds.length;
+        return;
         })();
     };
 

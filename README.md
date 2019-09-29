@@ -1,7 +1,7 @@
 
 # Project Title
 
-Instagram bot to upload images to an account and send private message to all Instagram followers. 
+Instagram bot (upload images & dm's Instagram followers) 
 
 ---
 ## Requirements

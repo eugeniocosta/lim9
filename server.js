@@ -60,7 +60,7 @@ app.post('/login',urlencodedParser, function (req, res) {
   })()
 })
 
-
+// Login function
 const login = async function (igUsername,igPassword) {
   ig.state.generateDevice(process.env.IG_USERNAME=igUsername);
   ig.state.proxyUrl = process.env.IG_PROXY;
@@ -94,10 +94,7 @@ app.post('/imagePost',upload.single('photoPost'), function (req, res) {
  ///////////////////////////////////
  
 app.post('/dmFollowers',urlencodedParser, function (req, res) {
-  
-  (async function () {
-    console.log('\n\n',await  igFunc.igDmFollowers(igUsername,igPassword,req.body.dmMessage));
-  })()
+  igFunc.igDmFollowers(igUsername,igPassword,req.body.dmMessage);
 })
 
    ///////////////////////////////////
