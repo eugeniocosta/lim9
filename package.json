@@ -2,10 +2,10 @@
   "name": "lim9-ig",
   "version": "1.0.0",
   "description": "instagram bot for uploading and sending DMs",
-  "main": "./public/js/server.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node ./public/js/server.js",
-    "test": "nodemon ./public/js/server.js"
+    "start": "node server.js",
+    "test": "nodemon server.js"
   },
   "author": "Eugénio da Costa",
   "license": "ISC",
@@ -18,7 +18,7 @@
     "instagram-private-api": "file:instagram-private-api",
     "multer": "^1.4.2"
   },
-  "devDependencies" : {
+  "devDependencies": {
     "nodemon": "^1.19.2"
   }
 }

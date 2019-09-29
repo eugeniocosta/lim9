@@ -6,14 +6,14 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const express = require('express');
-const igFunc = require('./igFunctions'); //require Instagram Function Module - PostImage & DM Followers
+const igFunc = require('./public/js/igFunctions'); //require Instagram Function Module - PostImage & DM Followers
 
 //constants
 const ig = new insta.IgApiClient();
 const app = express();
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const publicDirectoryPath = path.join(__dirname, '/public');
-const port = 4000;
+const port = 2000;
 
 let loggedIn = false;
 let igUsername,igPassword;
@@ -103,11 +103,12 @@ app.post('/dmFollowers',urlencodedParser, function (req, res) {
    ///////////////////////////////////
   //          Send FIles           //
  ///////////////////////////////////
+ console.log(__dirname)
 app.get('/client.js',function(req,res){
-    res.sendFile(path.join(__dirname + '/client.js'));
+    res.sendFile(path.join(__dirname + '/public/js/client.js'));
 });
 app.get('/igFunctions.js',function(req,res){
-  res.sendFile(path.join(__dirname + '/igFunctions.js')); 
+  res.sendFile(path.join(__dirname + '/public/js/igFunctions.js')); 
 });
 app.get('/instagramLogo.jpg',function(req,res){
   res.sendFile(path.join(__dirname + '/img/instagramLogo.jpg')); 
