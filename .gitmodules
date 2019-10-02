@@ -1,3 +1,4 @@
 [submodule "instagram-private-api"]
 	path = instagram-private-api
-	url = github:dilame/instagram-private-api
+	url = https://github.com/dilame/instagram-private-api
+	branch = master
